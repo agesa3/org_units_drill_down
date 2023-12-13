@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Hello world</h1>
+
+<script>
+    function getOrgHierarchy(org_id, orgUnits) {
+    // Find the org unit with the given org_id
+    const currentOrgUnit = orgUnits.find(unit => unit.org_id === org_id);
+
+    if (!currentOrgUnit) {
+        console.error("Org unit not found");
+        return null;
+    }
+
+    // Base case: if it's a country level, return the current org unit
+    if (currentOrgUnit.level_id === 1) {
+        return currentOrgUnit;
+    }
+
+    // Recursively get the parent org unit
+    const parentOrgUnit = getOrgHierarchy(currentOrgUnit.parent_id, orgUnits);
+
+    // Combine the current org unit and its parent
+    return {
+        current: currentOrgUnit,
+        parent: parentOrgUnit,
+    };
+}
+
+// Example usage
+const orgUnitsData = [
+  {
+    "id": 1,
+    "code": "KE_254",
+    "name": "Kenya",
+    "org_id": "HfVjCurKxh2",
+    "parent_id": "HfVjCurKxh2",
+    "level_id": 1,
+    "created_at": "2023-09-04 17:18:16",
+    "updated_at": "2023-09-04 17:18:16"
+  },
+
+  {
+    "id": 5,
+    "code": "KE_County_40",
+    "name": "Busia County",
+    "org_id": "Tvf1zgVZ0K4",
+    "parent_id": "HfVjCurKxh2",
+    "level_id": 2,
+    "created_at": "2023-09-04 17:18:16",
+    "updated_at": "2023-09-04 17:18:16"
+  },
+    {
+      "id": 69,
+      "code": "KE_SubCounty_2973",
+      "name": "Bunyala Sub County",
+      "org_id": "zI6vnsXresW",
+      "parent_id": "Tvf1zgVZ0K4",
+      "level_id": 3,
+      "created_at": "2023-09-04 17:18:16",
+      "updated_at": "2023-09-04 17:18:16"
+    },
+    {
+      "id": 73,
+      "code": "KE_SubCounty_2975",
+      "name": "Butula Sub County",
+      "org_id": "RIBiZFJxB1K",
+      "parent_id": "Tvf1zgVZ0K4",
+      "level_id": 3,
+      "created_at": "2023-09-04 17:18:16",
+      "updated_at": "2023-09-04 17:18:16"
+    },
+    {
+      "id": 226,
+      "code": "KE_SubCounty_2976",
+      "name": "Matayos Sub County",
+      "org_id": "tvkI2HSIRW9",
+      "parent_id": "Tvf1zgVZ0K4",
+      "level_id": 3,
+      "created_at": "2023-09-04 17:18:17",
+      "updated_at": "2023-09-04 17:18:17"
+    },
+    {
+      "id": 320,
+      "code": "KE_SubCounty_2979",
+      "name": "Teso North Sub County",
+      "org_id": "GpEIlwz3FvT",
+      "parent_id": "Tvf1zgVZ0K4",
+      "level_id": 3,
+      "created_at": "2023-09-04 17:18:18",
+      "updated_at": "2023-09-04 17:18:18"
+    },
+    {
+      "id": 462,
+      "code": "KE_Ward_1152",
+      "name": "Bunyala Central Ward",
+      "org_id": "L8VRh5JlUik",
+      "parent_id": "zI6vnsXresW",
+      "level_id": 4,
+      "created_at": "2023-09-04 17:18:18",
+      "updated_at": "2023-09-04 17:18:18"
+    },
+    {
+      "id": 465,
+      "code": "KE_Ward_1153",
+      "name": "Bunyala North Ward",
+      "org_id": "FrPqZ0quyrF",
+      "parent_id": "zI6vnsXresW",
+      "level_id": 4,
+      "created_at": "2023-09-04 17:18:18",
+      "updated_at": "2023-09-04 17:18:18"
+    },
+    {
+      "id": 466,
+      "code": "KE_Ward_1155",
+      "name": "Bunyala South Ward",
+      "org_id": "BBkS40b5WG7",
+      "parent_id": "zI6vnsXresW",
+      "level_id": 4,
+      "created_at": "2023-09-04 17:18:18",
+      "updated_at": "2023-09-04 17:18:18"
+    }
+  
+];
+
+
+const org_id = "BBkS40b5WG7"; // Replace with the org_id you want to search
+
+const hierarchy = getOrgHierarchy(org_id, orgUnitsData);
+
+if (hierarchy) {
+    console.log("Current Org Unit:", hierarchy.current);
+    console.log(JSON.stringify(hierarchy.parent));
+} else {
+    console.log("Org unit not found");
+}
+
+</script>
+    
+</body>
+</html>
